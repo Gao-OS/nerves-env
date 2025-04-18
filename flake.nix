@@ -21,7 +21,6 @@
         system:
           f {
             pkgs = nixpkgs.legacyPackages.${system};
-            # pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
           }
       );
   in {
@@ -42,19 +41,29 @@
 
         LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
 
-        buildInputs = [
-          pkgs.alejandra
-          pkgs.openapi-generator-cli
-          pkgs.figlet
+        buildInputs = with pkgs; [
+          alejandra
+          openapi-generator-cli
+          figlet
 
-          pkgs.xz
-          pkgs.zig
+          autoconf
+          automake
+          curl
+          fwup
+          git
+          squashfsTools
+          pkg-config
 
-          pkgs.elixir
-          pkgs.esbuild
-          pkgs.tailwindcss
-          pkgs.nodejs_22
-          pkgs.bun
+          xz
+          zig
+
+          rebar3
+          erlang
+          elixir
+          esbuild
+          tailwindcss
+          nodejs_22
+          bun
         ];
 
         shellHook = ''
@@ -65,16 +74,16 @@
 
         export PATH="$PATH":"$HOME/.local/share/galaxy-pub-cache/bin"
 
-	export NPM_CONFIG_PREFIX=$HOME/.local/share/npm
-	export NPM_CONFIG_REGISTRY=https://nexus.gsmlg.net/repository/npm-org/
+        export NPM_CONFIG_PREFIX=$HOME/.local/share/npm
+        export NPM_CONFIG_REGISTRY=https://nexus.gsmlg.net/repository/npm-org/
 
-	export MIX_HOME=$HOME/.local/share/mix_nerves
-	export HEX_MIRROR=https://nexus.gsmlg.net/repository/hex-pm/
-	export HEX_CDN=https://nexus.gsmlg.net/repository/hex-pm/
+        export MIX_HOME=$HOME/.local/share/mix_nerves
+        export HEX_MIRROR=https://nexus.gsmlg.net/repository/hex-pm/
+        export HEX_CDN=https://nexus.gsmlg.net/repository/hex-pm/
 
         export BROWSERSLIST_IGNORE_OLD_DATA=true
 
-	'';
+        '';
       };
     });
   };
