@@ -68,7 +68,7 @@
 	export NPM_CONFIG_PREFIX=$HOME/.local/share/npm
 	export NPM_CONFIG_REGISTRY=https://nexus.gsmlg.net/repository/npm-org/
 
-	export MIX_HOME=$HOME/.local/share/mix
+	export MIX_HOME=$HOME/.local/share/mix_nerves
 	export HEX_MIRROR=https://nexus.gsmlg.net/repository/hex-pm/
 	export HEX_CDN=https://nexus.gsmlg.net/repository/hex-pm/
 
