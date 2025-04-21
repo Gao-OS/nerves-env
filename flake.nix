@@ -45,6 +45,7 @@
           alejandra
           openapi-generator-cli
           figlet
+          libmnl
 
           autoconf
           automake
@@ -53,17 +54,12 @@
           git
           squashfsTools
           pkg-config
-
           xz
-          zig
 
-          rebar3
-          erlang
-          elixir
+          asdf
+
           esbuild
           tailwindcss
-          nodejs_22
-          bun
         ];
 
         shellHook = ''
