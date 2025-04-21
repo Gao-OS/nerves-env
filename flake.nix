@@ -56,7 +56,7 @@
           pkg-config
           xz
 
-          asdf
+          asdf-vm
 
           esbuild
           tailwindcss
