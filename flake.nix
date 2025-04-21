@@ -68,8 +68,6 @@
 
         export EDITOR=vim
 
-        export PATH="$PATH":"$HOME/.local/share/galaxy-pub-cache/bin"
-
         export NPM_CONFIG_PREFIX=$HOME/.local/share/npm
         export NPM_CONFIG_REGISTRY=https://nexus.gsmlg.net/repository/npm-org/
 
@@ -78,6 +76,10 @@
         export HEX_CDN=https://nexus.gsmlg.net/repository/hex-pm/
 
         export BROWSERSLIST_IGNORE_OLD_DATA=true
+
+        export ASDF_DATA_DIR=$HOME/.asdf
+
+        export PATH="$ASDF_DATA_DIR/shims:$HOME/.local/share/galaxy-pub-cache/bin:$PATH"
 
         '';
       };
