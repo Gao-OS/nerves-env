@@ -6,7 +6,6 @@
   ...
 }: let
   pkgs-stable = import inputs.nixpkgs-stable {system = pkgs.stdenv.system;};
-  pkgs-unstable = import inputs.nixpkgs-unstable {system = pkgs.stdenv.system;};
 in {
   # Environment name
   name = "Nerves Dev Shell";

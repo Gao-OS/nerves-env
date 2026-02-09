@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **devenv-based development environment** for GaoOS Nerves (embedded Elixir) projects. It provides a reproducible dev shell with pinned tool versions - not application source code.
+This is a **devenv-based development environment** for GaoOS Nerves (embedded Elixir) projects. It provides a reproducible dev shell with pinned tool versions — not application source code.
 
 ## Development Environment
 
@@ -19,37 +19,32 @@ Format Nix files:
 alejandra devenv.nix
 ```
 
-## Tool Versions (via asdf)
-
-Managed in `.tool-versions`:
-- Elixir 1.18.3-otp-27
-- Erlang 27.3.3
-- Bun 1.2.10
-
 ## Architecture
 
-- `devenv.nix` - Main configuration defining the dev shell, packages, and environment variables
-- `devenv.yaml` - devenv inputs configuration (nixpkgs version, custom caches)
-- `.tool-versions` - asdf version pinning for Elixir/Erlang/Bun
-- `.envrc` - direnv integration to auto-load devenv
+- `devenv.nix` — Main configuration: dev shell packages, language settings, and environment variables
+- `devenv.yaml` — devenv inputs (pins two nixpkgs channels: rolling and stable release-25.11)
+- `.envrc` — direnv integration with `DIRENV_WARN_TIMEOUT=20s`
+
+### Nixpkgs Pin Strategy
+
+`devenv.yaml` pins two channels: `nixpkgs` (rolling, used by devenv internals) and `nixpkgs-stable` (release-25.11, used for all packages in `devenv.nix`).
+
+## Key Environment Variables Set by Shell
+
+- `MIX_HOME` → `$DEVENV_ROOT/.mix` (project-local)
+- `HEX_HOME` → `$DEVENV_ROOT/.hex` (project-local)
+- `NERVES_DL_DIR` → `$DEVENV_ROOT/.nerves/dl`
+- `NERVES_ARTIFACTS_DIR` → `$DEVENV_ROOT/.nerves/artifacts`
+- `ERL_AFLAGS` → `-kernel shell_history enabled`
 
 ## Custom Registry Configuration
 
 Uses internal Nexus registry (nexus.gsmlg.net) for:
-- Nix cache (`extra-substituters` in devenv.yaml)
 - npm packages (`NPM_CONFIG_REGISTRY`)
 - Hex packages (`HEX_MIRROR`, `HEX_CDN`)
 
-## Key Environment Variables Set by Shell
-
-- `MIX_HOME` → `$HOME/.local/share/mix_nerves`
-- `ASDF_DATA_DIR` → `$HOME/.asdf`
-- Custom PATH includes asdf shims and galaxy-pub-cache
-
 ## Making Changes
 
-To update tool versions: edit `.tool-versions` (for asdf-managed tools).
-
-To add build dependencies: add packages to the `packages` list in `devenv.nix`.
-
-To update nixpkgs version: edit `devenv.yaml` inputs section.
+- **Add build dependencies**: add packages to the `packages` list in `devenv.nix` (uses `pkgs-stable`)
+- **Update nixpkgs version**: edit `devenv.yaml` inputs section
+- **Update language versions**: modify `languages.erlang.package` / `languages.elixir.package` in `devenv.nix`
